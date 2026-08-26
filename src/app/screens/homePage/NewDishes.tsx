@@ -41,7 +41,7 @@ export default function NewDishes() {
                       <CardOverflow>
                         {/* bikes show displacement, everything else its size */}
                         <div className="product-sale">
-                          {product.productCollection === ProductCollection.BIKE
+                          {product.productCollection === ProductCollection.DRINK
                             ? `${product.productVolume} cc`
                             : product.productSize}
                         </div>

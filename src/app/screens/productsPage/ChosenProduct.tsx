@@ -69,7 +69,7 @@ export default function ChosenProduct(props: ProductsProps) {
 
     const member = new MemberService();
     member
-      .getStore()
+      .getRestaurant()
       .then((data) => setRestaurant(data))
       .catch((err) => console.log(err));
   }, [productId]);
