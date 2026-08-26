@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="230" height="44" viewBox="0 0 230 44" fill="none">
+  <g transform="skewX(-14)">
+    <rect x="16" y="7" width="11" height="30" fill="#E10600"/>
+    <rect x="33" y="7" width="6" height="30" fill="#FF4D00"/>
+  </g>
+  <text x="50" y="33" font-family="Arial Black, Arial, sans-serif" font-size="25" font-weight="900" font-style="italic" letter-spacing="1" fill="#F4F6F8">APEX</text>
+  <text x="132" y="33" font-family="Arial Black, Arial, sans-serif" font-size="25" font-weight="900" font-style="italic" letter-spacing="1" fill="#E10600">MOTO</text>
+</svg>

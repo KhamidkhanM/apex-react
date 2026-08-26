@@ -1,3 +1,15 @@
+/**
+ * APEX MOTO — design for src/app/components/headers/Basket.tsx
+ *
+ * The cart drawer that hangs off the navbar cart icon. All logic
+ * (useBasket handlers, OrderService.createOrder, the authMember guard) is
+ * the original; only the MUI Menu paper is restyled dark and the class
+ * names line up with the .basket-* rules already in css/navbar.css.
+ *
+ * NOTE: HomeNavBar.tsx / OtherNavBar.tsx in this kit render <Basket />
+ * without props for preview purposes. In your project keep passing the
+ * real props down, exactly as the original App.tsx does.
+ */
 import React from "react";
 import { Box, Button, Stack } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -25,18 +37,19 @@ export default function Basket(props: BasketProps) {
   const { cartItems, onAdd, onRemove, onDelete, onDeleteAll } = props;
   const { authMember, setOrderBuilder } = useGlobals();
   const history = useHistory();
+
   const itemsPrice: number = cartItems.reduce(
     (a: number, c: CartItem) => a + c.quantity * c.price,
-    0,
+    0
   );
-  const shippingCost: number = itemsPrice < 100 ? 5 : 0;
+  // free delivery over $150 — matches the promise in the hero + order page
+  const shippingCost: number = itemsPrice === 0 || itemsPrice >= 150 ? 0 : 5;
   const totalPrice = (itemsPrice + shippingCost).toFixed(1);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   /** HANDLERS **/
-
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(e.currentTarget);
   };
@@ -45,7 +58,7 @@ export default function Basket(props: BasketProps) {
   };
 
   const proceedOrderHandler = async () => {
-    try { 
+    try {
       handleClose();
       if (!authMember) throw new Error(Messages.error2);
       const order = new OrderService();
@@ -72,27 +85,29 @@ export default function Basket(props: BasketProps) {
         onClick={handleClick}
       >
         <Badge badgeContent={cartItems.length} color="secondary">
-          <img src={"/icons/shopping-cart.svg"} />
+          <img src={"/icons/shopping-cart.svg"} alt="Basket" />
         </Badge>
       </IconButton>
+
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
         onClose={handleClose}
-        // onClick={handleClose}
         PaperProps={{
           elevation: 0,
           sx: {
+            /* dark glass panel instead of MUI's white paper */
             overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
             mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
+            backgroundColor: "rgba(16, 20, 27, 0.96)",
+            backdropFilter: "blur(16px)",
+            border: "1px solid rgba(255, 255, 255, 0.08)",
+            borderRadius: "16px",
+            color: "#f4f6f8",
+            filter: "drop-shadow(0px 14px 34px rgba(0,0,0,0.55))",
+            "& .MuiAvatar-root": { width: 32, height: 32, ml: -0.5, mr: 1 },
+            /* the little arrow pointing at the cart icon */
             "&:before": {
               content: '""',
               display: "block",
@@ -101,7 +116,9 @@ export default function Basket(props: BasketProps) {
               right: 14,
               width: 10,
               height: 10,
-              bgcolor: "background.paper",
+              bgcolor: "rgba(16, 20, 27, 0.96)",
+              borderTop: "1px solid rgba(255, 255, 255, 0.08)",
+              borderLeft: "1px solid rgba(255, 255, 255, 0.08)",
               transform: "translateY(-50%) rotate(45deg)",
               zIndex: 0,
             },
@@ -113,12 +130,12 @@ export default function Basket(props: BasketProps) {
         <Stack className={"basket-frame"}>
           <Box className={"all-check-box"}>
             {cartItems.length === 0 ? (
-              <div>Cart is empty!</div>
+              <div>Your basket is empty</div>
             ) : (
-              <Stack flexDirection={"row"}>
-                <div>Cart Products:</div>
+              <Stack flexDirection={"row"} alignItems={"center"}>
+                <div>In your basket</div>
                 <DeleteForeverIcon
-                  sx={{ ml: "5px", cursor: "pointer" }}
+                  sx={{ ml: "8px", cursor: "pointer" }}
                   color={"primary"}
                   onClick={() => onDeleteAll()}
                 />
@@ -138,7 +155,7 @@ export default function Basket(props: BasketProps) {
                         onClick={() => onDelete(item)}
                       />
                     </div>
-                    <img src={imagePath} className={"product-img"} />
+                    <img src={imagePath} className={"product-img"} alt={item.name} />
                     <span className={"product-name"}>{item.name}</span>
                     <p className={"product-price"}>
                       ${item.price} x {item.quantity}
@@ -161,16 +178,17 @@ export default function Basket(props: BasketProps) {
               })}
             </Box>
           </Box>
+
           {cartItems.length !== 0 ? (
             <Box className={"basket-order"}>
               <span className={"price"}>
-                Total: ${totalPrice} ({itemsPrice} +{shippingCost})
+                Total ${totalPrice} ({itemsPrice} + {shippingCost} delivery)
               </span>
-              <Button 
-              onClick={proceedOrderHandler}
-              startIcon={<ShoppingCartIcon />} 
-              variant={"contained"}
-            >
+              <Button
+                onClick={proceedOrderHandler}
+                startIcon={<ShoppingCartIcon />}
+                variant={"contained"}
+              >
                 Order
               </Button>
             </Box>

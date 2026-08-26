@@ -1,3 +1,7 @@
+/**
+ * APEX MOTO — design for src/app/screens/ordersPage/ProcessOrders.tsx
+ * "On the way" tab. Original handler logic kept intact.
+ */
 import React from "react";
 import { Box, Stack } from "@mui/material";
 import Button from "@mui/material/Button";
@@ -27,29 +31,31 @@ interface ProcessOrderProps {
 }
 
 export default function ProcessOrders(props: ProcessOrderProps) {
-  const {setValue} = props;
-  const {processOrders} = useSelector(processOrdersRetriever)
-  const {authMember, setOrderBuilder} = useGlobals();
+  const { setValue } = props;
+  const { processOrders } = useSelector(processOrdersRetriever);
+  const { authMember, setOrderBuilder } = useGlobals();
 
-const finishedOrderHandler = async (e: T) => {
-  try {
-    if(!authMember) throw new Error(Messages.error2) 
-    const orderId = e.currentTarget.value;
-    const input: OrderUpdateInput = {orderId: orderId, orderStatus: OrderStatus.FINISH}
+  const finishedOrderHandler = async (e: T) => {
+    try {
+      if (!authMember) throw new Error(Messages.error2);
+      const orderId = e.currentTarget.value;
+      const input: OrderUpdateInput = {
+        orderId: orderId,
+        orderStatus: OrderStatus.FINISH,
+      };
 
-    const confirmation = window.confirm("Have you recieved your order?");
-    if (confirmation) {
-      const order = new OrderService();
-      await order.updateOrder(input);
-      setValue("3");
-      setOrderBuilder(new Date());
+      const confirmation = window.confirm("Have you received your order?");
+      if (confirmation) {
+        const order = new OrderService();
+        await order.updateOrder(input);
+        setValue("3");
+        setOrderBuilder(new Date());
+      }
+    } catch (err) {
+      console.log(err);
+      sweetErrorHandling(err).then();
     }
-  } catch(err) {
-    console.log(err);
-    sweetErrorHandling(err).then();
-
-  }
-};
+  };
 
   return (
     <TabPanel value={"2"}>
@@ -61,21 +67,24 @@ const finishedOrderHandler = async (e: T) => {
                 {order?.orderItems?.map((item: OrderItem) => {
                   const product: Product = order.productData.filter(
                     (ele: Product) => item.productId === ele._id
-                  )[0]
-                  const imagePath = `${serverApi}/${product.productImages[0]}`
+                  )[0];
+                  const imagePath = `${serverApi}/${product.productImages[0]}`;
                   return (
                     <Box key={item._id} className={"orders-name-price"}>
                       <img
                         src={imagePath}
                         className={"order-dish-img"}
+                        alt={product.productName}
                       />
                       <p className={"title-dish"}>{product.productName}</p>
                       <Box className={"price-box"}>
-                        <p>{item.itemPrice}</p>
-                        <img src={"/icons/close.svg"} />
+                        <p>${item.itemPrice}</p>
+                        <img src={"/icons/close.svg"} alt="x" />
                         <p>{item.itemQuantity}</p>
-                        <img src={"/icons/pause.svg"} />
-                        <p style={{ marginLeft: "15px" }}>${item.itemQuantity * item.itemPrice}</p>
+                        <img src={"/icons/pause.svg"} alt="=" />
+                        <p style={{ marginLeft: "15px" }}>
+                          ${item.itemQuantity * item.itemPrice}
+                        </p>
                       </Box>
                     </Box>
                   );
@@ -84,28 +93,26 @@ const finishedOrderHandler = async (e: T) => {
 
               <Box className={"total-price-box"}>
                 <Box className={"box-total"}>
-                  <p>Product price</p>
+                  <p>Items</p>
                   <p>${order.orderTotal - order.orderDelivery}</p>
-                  <img src={"/icons/plus.svg"} style={{ marginLeft: "20px" }} />
-                  <p>delivery cost</p>
+                  <img src={"/icons/plus.svg"} style={{ marginLeft: "20px" }} alt="+" />
+                  <p>Delivery</p>
                   <p>${order.orderDelivery}</p>
-                  <img
-                    src={"/icons/pause.svg"}
-                    style={{ marginLeft: "20px" }}
-                  />
+                  <img src={"/icons/pause.svg"} style={{ marginLeft: "20px" }} alt="=" />
                   <p>Total</p>
                   <p>${order.orderTotal}</p>
                 </Box>
+                {/* shipped-at timestamp */}
                 <p className={"data-compl"}>
                   {moment(order.updatedAt).format("YY-MM-DD HH:mm")}
                 </p>
-                <Button 
+                <Button
                   value={order._id}
-                  variant="contained" 
+                  variant="contained"
                   className={"verify-button"}
                   onClick={finishedOrderHandler}
                 >
-                  Verify to Fulfil
+                  Confirm delivery
                 </Button>
               </Box>
             </Box>
@@ -113,12 +120,13 @@ const finishedOrderHandler = async (e: T) => {
         })}
 
         {(!processOrders || processOrders.length === 0) && (
-          <Box display={"flex"} flexDirection={"row"} justifyContent={"center"}>
+          <Box display={"flex"} flexDirection={"column"} alignItems={"center"}>
             <img
               src={"/icons/noimage-list.svg"}
-              style={{ width: 300, height: 300 }}
+              style={{ width: 260, height: 260, opacity: 0.5 }}
               alt="No orders"
             />
+            <span className={"no-data"}>Nothing on the way right now</span>
           </Box>
         )}
       </Stack>
