@@ -12,7 +12,7 @@
 
 /* ==================== SHOP INTRO / SEARCH ==================== */
 
-.shop-intro-box {
+.avatar-big-box {
   width: 100%;
   margin-top: 10px;
   padding: 74px 60px;
@@ -31,14 +31,14 @@
       center / cover no-repeat;
 }
 
-.shop-intro-box .top-text {
+.avatar-big-box .top-text {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 26px;
 }
 
-.shop-intro-box .top-text p {
+.avatar-big-box .top-text p {
   margin: 0;
   font-family: var(--font-display);
   font-size: 46px;
@@ -50,7 +50,10 @@
 
 .single-search-big-box {
   display: flex;
-  flex-direction: row;
+  /* MUI Stack defaults to column and its emotion class loads after this
+     file, so the direction has to be forced here */
+  flex-direction: row !important;
+  align-items: center;
   width: 560px;
   max-width: 100%;
   height: 56px;
@@ -102,7 +105,8 @@
 
 .dishes-filter-box {
   display: flex;
-  flex-direction: row;
+  flex-direction: row !important;
+  flex-wrap: wrap;
   gap: 12px;
 }
 
@@ -126,6 +130,7 @@
   background: var(--moto-card);
   box-shadow: none;
 }
+.dishes-filter-box .order.MuiButton-containedPrimary,
 .dishes-filter-box .order.filter-active {
   background: var(--moto-grad);
   border-color: transparent;
@@ -178,6 +183,7 @@
   background: var(--moto-card);
   box-shadow: none;
 }
+.product-category .category-main button.MuiButton-containedPrimary,
 .product-category .category-main button.cat-active {
   background: var(--moto-grad);
   border-color: transparent;

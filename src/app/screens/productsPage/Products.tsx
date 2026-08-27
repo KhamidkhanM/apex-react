@@ -98,7 +98,7 @@ export default function Products(props: ProductsProps) {
         <Stack flexDirection={"column"} alignItems={"center"}>
           <Stack className={"avatar-big-box"}>
             <Stack className={"top-text"}>
-              <p>Bumarak Restaurant</p>
+              <p>Bikes &amp; Gear</p>
               <Stack className={"single-search-big-box"}>
                 <input
                   type={"search"}
