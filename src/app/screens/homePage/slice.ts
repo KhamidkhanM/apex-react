@@ -11,10 +11,10 @@ const homePageSlice = createSlice({
     name: "homePage",
     initialState,
     reducers: {
-        setPopularDishes: (state, action) => {
+        setPopularBikes: (state, action) => {
             state.popularDishes = action.payload;
         },
-        setNewDishes: (state, action) => {
+        setNewBikes: (state, action) => {
             state.newDishes = action.payload;
         },
         setTopUsers: (state, action) => {
@@ -23,7 +23,7 @@ const homePageSlice = createSlice({
     },
 });
 
-export const { setPopularDishes, setNewDishes, setTopUsers } =
+export const { setPopularBikes, setNewBikes, setTopUsers } =
     homePageSlice.actions;
 
 const homePageReducer = homePageSlice.reducer;

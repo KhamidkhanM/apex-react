@@ -18,7 +18,7 @@ const newDishesRetriever = createSelector(retrieveNewDishes, (newDishes) => ({
   newDishes,
 }));
 
-export default function NewDishes() {
+export default function NewBikes() {
   const { newDishes } = useSelector(newDishesRetriever);
 
   return (
@@ -41,7 +41,7 @@ export default function NewDishes() {
                       <CardOverflow>
                         {/* bikes show displacement, everything else its size */}
                         <div className="product-sale">
-                          {product.productCollection === ProductCollection.DRINK
+                          {product.productCollection === ProductCollection.BIKE
                             ? `${product.productVolume} cc`
                             : product.productSize}
                         </div>

@@ -18,7 +18,7 @@ const popularDishesRetriever = createSelector(
   (popularDishes) => ({ popularDishes })
 );
 
-export default function PopularDishes() {
+export default function PopularBikes() {
   const { popularDishes } = useSelector(popularDishesRetriever);
 
   return (
