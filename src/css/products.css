@@ -448,6 +448,11 @@
 /* ---------------- gallery ---------------- */
 
 .chosen-product-slider {
+  /* This is a MUI Stack, so it arrives as a flex container. Swiper measures
+     its parent to size the slides — inside a flex parent with no definite
+     width that can resolve to 0, which makes the image flash then vanish
+     once Swiper initialises. Block layout gives it a width to measure. */
+  display: block !important;
   flex: 1 1 520px;
   min-width: 0;
   padding: 16px;
@@ -458,8 +463,15 @@
 }
 
 .chosen-product .swiper-area {
+  width: 100%;
   border-radius: var(--radius-md);
   overflow: hidden;
+}
+
+.chosen-product .swiper-slide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .chosen-product .slider-image {
