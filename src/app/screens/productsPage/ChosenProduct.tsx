@@ -15,11 +15,10 @@ import Divider from "../../components/divider";
 import Button from "@mui/material/Button";
 import Rating from "@mui/material/Rating";
 import { useParams } from "react-router-dom"; // @ts-ignore
-import { FreeMode, Navigation, Thumbs } from "swiper";
+import { FreeMode, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-import "swiper/css/thumbs";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
@@ -85,10 +84,10 @@ export default function ChosenProduct(props: ProductsProps) {
         {/* ---------------- gallery ---------------- */}
         <Stack className={"chosen-product-slider"}>
           <Swiper
-            loop={true}
+            loop={false}
             spaceBetween={10}
             navigation={true}
-            modules={[FreeMode, Navigation, Thumbs]}
+            modules={[FreeMode, Navigation]}
             className="swiper-area"
           >
             {chosenProduct?.productImages.map((ele: string, index: number) => {
