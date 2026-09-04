@@ -141,8 +141,8 @@
 
 .list-category-section {
   width: 100%;
-  display: flex;
-  flex-direction: row;
+  display: flex !important;
+  flex-direction: row !important;
   gap: 30px;
   margin-top: 18px;
 }
@@ -193,9 +193,11 @@
 
 .product-wrapper {
   flex: 1;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  min-width: 0;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-content: flex-start;
   gap: 24px;
 }
 

@@ -234,7 +234,7 @@ export default function Products(props: ProductsProps) {
                         </span>
                         <div className={"product-desc"}>
                           <MonetizationOnIcon />
-                          {12}
+                          {product.productPrice}
                         </div>
                       </Box>
                     </Stack>
