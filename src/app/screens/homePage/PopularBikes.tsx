@@ -8,18 +8,25 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import { retrievePopularDishes } from "./selector";
+import { useHistory } from "react-router-dom";
+import { retrievePopularBikes } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
 
 /** REDUX SLICE & SELECTOR **/
-const popularDishesRetriever = createSelector(
-  retrievePopularDishes,
-  (popularDishes) => ({ popularDishes })
+
+const popularBikesRetriever = createSelector(
+  retrievePopularBikes,
+  (popularBikes) => ({ popularBikes })
 );
 
 export default function PopularBikes() {
-  const { popularDishes } = useSelector(popularDishesRetriever);
+  const history = useHistory();
+  const { popularBikes } = useSelector(popularBikesRetriever);
+
+  const chooseBikeHandler = (id: string) => {
+    history.push(`/products/${id}`);
+  };
 
   return (
     <div className="popular-bikes-frame">
@@ -32,12 +39,15 @@ export default function PopularBikes() {
             </span>
           </Box>
           <Stack className="cards-frame">
-            {popularDishes.length !== 0 ? (
-              popularDishes.map((product: Product) => {
+            {popularBikes.length !== 0 ? (
+              popularBikes.map((product: Product) => {
                 const imagePath = `${serverApi}/${product.productImages[0]}`;
                 return (
                   <CssVarsProvider key={product._id}>
-                    <Card className={"card"}>
+                    <Card
+                      className={"card"}
+                      onClick={() => chooseBikeHandler(product._id)}
+                    >
                       <CardCover>
                         <img src={imagePath} alt={product.productName} />
                       </CardCover>

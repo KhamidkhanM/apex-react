@@ -8,18 +8,18 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import { useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import { retrieveNewDishes } from "./selector";
+import { retrieveNewBikes as retrieveNewBikes } from "./selector";
 import { Product } from "../../../lib/types/product";
 import { serverApi } from "../../../lib/config";
 import { ProductCollection } from "../../../lib/enums/product.enum";
 
 /** REDUX SLICE & SELECTOR **/
-const newDishesRetriever = createSelector(retrieveNewDishes, (newDishes) => ({
-  newDishes,
+const newBikesRetriever = createSelector(retrieveNewBikes, (newBikes) => ({
+  newDishes: newBikes,
 }));
 
 export default function NewBikes() {
-  const { newDishes } = useSelector(newDishesRetriever);
+  const { newDishes } = useSelector(newBikesRetriever);
 
   return (
     <div className={"new-products-frame"}>

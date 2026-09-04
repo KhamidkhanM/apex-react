@@ -23,9 +23,9 @@ import "swiper/css/thumbs";
 
 import { useDispatch, useSelector } from "react-redux";
 import { Dispatch } from "@reduxjs/toolkit";
-import { setRestaurant, setChosenProduct } from "./slice";
+import { setRestaurant as setStore, setChosenProduct } from "./slice";
 import { createSelector } from "reselect";
-import { retrieveChosenProduct, retrieveRestaurant } from "./selector";
+import { retrieveChosenProduct, retrieveRestaurant as retrieveStore } from "./selector";
 import { Product } from "../../../lib/types/product";
 import ProductService from "../../services/ProductService";
 import MemberService from "../../services/MemberService";
@@ -35,7 +35,7 @@ import { CartItem } from "../../../lib/types/search";
 
 /** REDUX SLICE & SELECTOR */
 const actionDispatch = (dispatch: Dispatch) => ({
-  setRestaurant: (data: Member) => dispatch(setRestaurant(data)),
+  setStore: (data: Member) => dispatch(setStore(data)),
   setChosenProduct: (data: Product) => dispatch(setChosenProduct(data)),
 });
 
@@ -44,9 +44,9 @@ const chosenProductRetriever = createSelector(
   (chosenProduct) => ({ chosenProduct })
 );
 
-const restaurantRetriever = createSelector(
-  retrieveRestaurant,
-  (restaurant) => ({ restaurant })
+const storeRetriever = createSelector(
+  retrieveStore,
+  (store) => ({ store })
 );
 
 interface ProductsProps {
@@ -56,9 +56,9 @@ interface ProductsProps {
 export default function ChosenProduct(props: ProductsProps) {
   const { onAdd } = props;
   const { productId } = useParams<{ productId: string }>();
-  const { setRestaurant, setChosenProduct } = actionDispatch(useDispatch());
+  const { setStore: setStore, setChosenProduct } = actionDispatch(useDispatch());
   const { chosenProduct } = useSelector(chosenProductRetriever);
-  const { restaurant } = useSelector(restaurantRetriever);
+  const { store: store } = useSelector(storeRetriever);
 
   useEffect(() => {
     const productService = new ProductService();
@@ -69,8 +69,8 @@ export default function ChosenProduct(props: ProductsProps) {
 
     const member = new MemberService();
     member
-      .getRestaurant()
-      .then((data) => setRestaurant(data))
+      .getStore()
+      .then((data) => setStore(data))
       .catch((err) => console.log(err));
   }, [productId]);
 
@@ -116,9 +116,9 @@ export default function ChosenProduct(props: ProductsProps) {
             <strong className={"product-name"}>
               {chosenProduct?.productName}
             </strong>
-            <span className={"resto-name"}>{restaurant?.memberNick}</span>
+            <span className={"resto-name"}>{store?.memberNick}</span>
             <span className={"resto-name"}>
-              {restaurant?.memberPhone ?? "010-2469-4424"}
+              {store?.memberPhone ?? "010-2469-4424"}
             </span>
 
             <Box className={"rating-box"}>
@@ -144,8 +144,8 @@ export default function ChosenProduct(props: ProductsProps) {
               <div className={"spec-row"}>
                 <span>Size / displacement</span>
                 <b>
-                  {chosenProduct?.productVolume
-                    ? `${chosenProduct.productVolume} cc`
+                  {chosenProduct?.productCollection === "BIKE"
+                    ? `${chosenProduct?.productVolume} cc`
                     : chosenProduct?.productSize}
                 </b>
               </div>
