@@ -266,33 +266,13 @@ export default function Products(props: ProductsProps) {
         </Stack>
       </Container>
 
-      <div className={"brands-logo"}>
-        <Container className={"family-brands"}>
-          <Box className={"category-title"}>Our Family Brands</Box>
-          <Stack className={"brand-list"}>
-            <Box className={"review-box"}>
-              <img src={"/img/gurme.png"} />
-            </Box>
-            <Box className={"review-box"}>
-              <img src={"/img/seafood.png"} />
-            </Box>
-            <Box className={"review-box"}>
-              <img src={"/img/doner.png"} />
-            </Box>
-            <Box className={"review-box"}>
-              <img src={"/img/sweets.png"} />
-            </Box>
-          </Stack>
-        </Container>
-      </div>
-
       <div className={"address"}>
         <Container>
           <Stack className={"address-area"}>
             <Box className={"title"}>Our address</Box>
             <iframe
               style={{ marginTop: "60px" }}
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d96326.03685561026!2d28.92022666528895!3d41.02112846139867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab82bea99445f%3A0x6ed7f4baceb4476c!2sMaiden&#39;s%20Tower!5e0!3m2!1sen!2skr!4v1757106097524!5m2!1sen!2skr"
+              src="https://www.google.com/maps?q=Toegye-ro%20109%2C%20Jung-gu%2C%20Seoul%2C%20South%20Korea&output=embed"
               width="1320"
               height="500"
               referrerPolicy="no-referrer-when-downgrade"

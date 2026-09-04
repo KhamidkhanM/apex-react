@@ -39,50 +39,44 @@ export default function ActiveUsers() {
           </Box>
           <Stack className={"cards-frame"}>
             <CssVarsProvider>
-              {topUsers.length !== 0
-                ? topUsers.map((member: Member) => {
-                    const imagePath = `${serverApi}/${member.memberImage}`;
-                    return (
-                      <Card
-                        key={member._id}
-                        variant="outlined"
-                        className={"card"}
-                      >
-                        <CardOverflow>
-                          <AspectRatio ratio="1">
-                            <img src={imagePath} alt={member.memberNick} />
-                          </AspectRatio>
-                        </CardOverflow>
-                        <div className={"rider-info"}>
-                          <div className={"member-nickname"}>
-                            {member.memberNick}
-                          </div>
-                          <div className={"member-role"}>
-                            {member.memberType}
-                          </div>
-                        </div>
-                      </Card>
-                    );
-                  })
-                : demoRiders.map((rider) => (
-                    <Card key={rider.id} variant="outlined" className={"card"}>
-                      <CardOverflow>
-                        <AspectRatio ratio="1">
-                          <Box
-                            className={"rider-avatar"}
-                            sx={{ background: rider.gradient }}
-                          >
-                            <span>{rider.nick.charAt(0)}</span>
-                          </Box>
-                        </AspectRatio>
-                      </CardOverflow>
-                      <div className={"rider-info"}>
-                        <div className={"member-nickname"}>{rider.nick}</div>
-                        <div className={"member-role"}>{rider.role}</div>
-                        <div className={"member-ride"}>{rider.ride}</div>
+              {topUsers.map((member: Member) => {
+                const imagePath = `${serverApi}/${member.memberImage}`;
+                return (
+                  <Card key={member._id} variant="outlined" className={"card"}>
+                    <CardOverflow>
+                      <AspectRatio ratio="1">
+                        <img src={imagePath} alt={member.memberNick} />
+                      </AspectRatio>
+                    </CardOverflow>
+                    <div className={"rider-info"}>
+                      <div className={"member-nickname"}>
+                        {member.memberNick}
                       </div>
-                    </Card>
-                  ))}
+                      <div className={"member-role"}>{member.memberType}</div>
+                    </div>
+                  </Card>
+                );
+              })}
+              {/* pad out with hardcoded riders so a thin real list doesn't leave the row half-empty */}
+              {demoRiders.slice(0, Math.max(0, 4 - topUsers.length)).map((rider) => (
+                <Card key={rider.id} variant="outlined" className={"card"}>
+                  <CardOverflow>
+                    <AspectRatio ratio="1">
+                      <Box
+                        className={"rider-avatar"}
+                        sx={{ background: rider.gradient }}
+                      >
+                        <span>{rider.nick.charAt(0)}</span>
+                      </Box>
+                    </AspectRatio>
+                  </CardOverflow>
+                  <div className={"rider-info"}>
+                    <div className={"member-nickname"}>{rider.nick}</div>
+                    <div className={"member-role"}>{rider.role}</div>
+                    <div className={"member-ride"}>{rider.ride}</div>
+                  </div>
+                </Card>
+              ))}
             </CssVarsProvider>
           </Stack>
         </Stack>
