@@ -2,7 +2,6 @@
    APEX MOTO — navbars + hero + basket
    HOW TO USE: replaces src/css/navbar.css
    ============================================================ */
-
 /* ===================== SHARED MENU BAR ===================== */
 
 .navbar-container {
@@ -11,19 +10,19 @@
 }
 
 .navbar-container .menu {
-  margin-top: 28px;
-  height: 66px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  box-sizing: border-box;
+  height: 66px;
   padding: 0 28px;
   border: 1px solid var(--moto-line);
   border-radius: 16px;
+  margin-top: 28px;
   background: rgba(13, 16, 22, 0.55);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  box-sizing: border-box;
 }
 
 .navbar-container .menu .brand-logo {
@@ -52,41 +51,46 @@
   color: var(--moto-txt);
   transition: color 0.2s ease;
 }
+
 .navbar-container .links a:hover {
   color: var(--moto-orange);
 }
 
 /* animated underline (kept from original, recolored) */
+
 .hover-line:after {
-  display: block;
   content: "";
+  display: block;
   height: 2px;
   margin-top: 5px;
   background: var(--moto-grad);
+  transition: transform 250ms ease-in-out;
   transform: scaleX(0);
   transform-origin: 0 50%;
-  transition: transform 250ms ease-in-out;
 }
+
 .hover-line:hover:after {
   transform: scaleX(1);
 }
+
 .navbar-container .underline {
   padding-bottom: 5px;
   border-bottom: 2px solid var(--moto-orange);
 }
 
 .navbar-container .login-button {
-  padding: 9px 28px;
-  background: var(--moto-grad);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 1.5px;
-  border-radius: 0;
   clip-path: polygon(9px 0, 100% 0, calc(100% - 9px) 100%, 0 100%);
+  padding: 9px 28px;
+  border-radius: 0;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #fff;
+  background: var(--moto-grad);
   box-shadow: none;
 }
+
 .navbar-container .login-button:hover {
   background: var(--moto-grad);
   box-shadow: var(--glow-red);
@@ -95,10 +99,10 @@
 .navbar-container .user-avatar {
   width: 44px;
   height: 44px;
-  object-fit: cover;
-  border-radius: 50%;
   border: 2px solid var(--moto-orange);
+  border-radius: 50%;
   cursor: pointer;
+  object-fit: cover;
 }
 
 /* ---------- logged-in profile dropdown ----------
@@ -116,21 +120,22 @@
   position: absolute;
   top: 44px;
   right: 0;
+  z-index: 50;
+  visibility: hidden;
   width: 232px;
   padding: 10px;
-  background: #12161e;
   border: 1px solid var(--moto-line);
   border-radius: 14px;
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  background: #12161e;
   opacity: 0;
-  visibility: hidden;
-  transform: translateY(10px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
   transition: all 0.25s ease;
-  z-index: 50;
+  transform: translateY(10px);
 }
+
 .user-box:hover .profile-dropdown {
-  opacity: 1;
   visibility: visible;
+  opacity: 1;
   transform: translateY(0);
 }
 
@@ -139,9 +144,10 @@
   flex-direction: column;
   gap: 3px;
   padding: 10px 12px 12px;
-  margin-bottom: 8px;
   border-bottom: 1px solid var(--moto-line);
+  margin-bottom: 8px;
 }
+
 .profile-head b {
   font-family: var(--font-display);
   font-size: 15px;
@@ -150,6 +156,7 @@
   text-transform: uppercase;
   color: var(--moto-txt);
 }
+
 .profile-head span {
   font-size: 12.5px;
   color: var(--moto-muted);
@@ -163,7 +170,9 @@
   border-radius: 10px;
   transition: background 0.2s ease;
 }
+
 /* beat the generic .links a rule */
+
 .navbar-container .links .profile-dropdown a {
   font-family: var(--font-body);
   font-size: 14px;
@@ -172,12 +181,15 @@
   text-transform: none;
   color: var(--moto-txt);
 }
+
 .profile-dropdown .pd-item:hover {
   background: rgba(255, 77, 0, 0.12);
 }
+
 .navbar-container .links .profile-dropdown a.pd-logout {
   color: #ff6b6b;
 }
+
 .profile-dropdown .pd-item.pd-logout:hover {
   background: rgba(225, 6, 0, 0.15);
 }
@@ -186,11 +198,12 @@
 
 .home-navbar {
   position: relative;
-  width: 100%;
-  min-height: 800px;
   display: flex;
   overflow: hidden;
-  background: linear-gradient(
+  width: 100%;
+  min-height: 800px;
+  background:
+    linear-gradient(
       180deg,
       rgba(10, 12, 16, 0.62) 0%,
       rgba(10, 12, 16, 0.35) 45%,
@@ -201,6 +214,7 @@
 }
 
 /* decorative speed stripes, top-right */
+
 .home-navbar::after {
   content: "";
   position: absolute;
@@ -209,146 +223,159 @@
   width: 340px;
   height: 8px;
   background: var(--moto-grad);
-  transform: skewX(-35deg);
-  box-shadow: 28px 26px 0 -2px rgba(255, 77, 0, 0.55),
-    56px 52px 0 -4px rgba(225, 6, 0, 0.3);
   opacity: 0.85;
+  box-shadow:
+    28px 26px 0 -2px rgba(255, 77, 0, 0.55),
+    56px 52px 0 -4px rgba(225, 6, 0, 0.3);
+  transform: skewX(-35deg);
   pointer-events: none;
 }
 
 .home-navbar .header-frame {
-  margin-top: 110px;
-  padding-bottom: 130px;
-  max-width: 730px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  max-width: 730px;
+  padding-bottom: 130px;
+  margin-top: 110px;
 }
 
 .home-navbar .head-main-txt {
   margin-top: 20px;
   font-family: var(--font-display);
   font-size: 76px;
-  font-style: italic;
   font-weight: 700;
+  font-style: italic;
   line-height: 1.02;
-  text-transform: uppercase;
   letter-spacing: -1px;
+  text-transform: uppercase;
   color: var(--moto-txt);
   text-shadow: 0 8px 44px rgba(0, 0, 0, 0.55);
 }
 
 .home-navbar .wel-txt {
-  margin-top: 24px;
   max-width: 560px;
+  margin-top: 24px;
   font-size: 18px;
   line-height: 1.65;
   color: #c7cdd6;
 }
 
+.home-navbar .service-txt {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--moto-orange);
+}
+
 .home-navbar .signup {
-  margin-top: 44px;
   display: flex;
   flex-direction: row;
   gap: 16px;
+  margin-top: 44px;
 }
 
 .home-navbar .hero-chips {
-  margin-top: 56px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 12px;
+  margin-top: 56px;
 }
 
 .hero-chips .chip {
   padding: 11px 18px;
   border: 1px solid var(--moto-line);
   border-radius: 999px;
-  background: rgba(16, 20, 27, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   font-family: var(--font-display);
   font-size: 13px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--moto-muted);
+  background: rgba(16, 20, 27, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
+
 .hero-chips .chip b {
-  color: var(--moto-orange);
   margin-right: 6px;
+  color: var(--moto-orange);
 }
 
 /* ===================== OTHER NAVBAR (inner pages) ===================== */
 
 .other-navbar {
-  width: 100%;
   display: flex;
+  width: 100%;
   padding-bottom: 36px;
-  background: linear-gradient(
+  border-bottom: 1px solid var(--moto-line);
+  background:
+    linear-gradient(
       180deg,
       rgba(10, 12, 16, 0.82) 0%,
       rgba(10, 12, 16, 0.95) 100%
     ),
     url("https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1600&q=60")
       center / cover no-repeat;
-  border-bottom: 1px solid var(--moto-line);
 }
 
 /* ===================== BASKET DROPDOWN ===================== */
 
 .basket-frame {
   position: relative;
-  padding: 12px 6px 0 6px;
-  width: 450px;
-  height: auto;
   display: flex;
   flex-direction: column;
-  background: #12161e;
+  width: 450px;
+  height: auto;
+  padding: 12px 6px 0 6px;
   border: 1px solid var(--moto-line);
   border-radius: 16px;
   color: var(--moto-txt);
+  background: #12161e;
 }
 
 .basket-frame .all-check-box {
-  padding: 0 10px;
-  width: 100%;
-  height: 38px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: rgba(225, 6, 0, 0.14);
+  box-sizing: border-box;
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
   border: 1px solid var(--moto-line);
   border-radius: 10px;
-  box-sizing: border-box;
   font-family: var(--font-display);
   letter-spacing: 1px;
+  background: rgba(225, 6, 0, 0.14);
 }
 
 .basket-frame .basket-info-box {
   position: relative;
-  margin-top: 8px;
-  width: 100%;
-  height: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 100%;
+  height: auto;
+  margin-top: 8px;
 }
 
 .basket-info-box .product-img {
   width: 56px;
   height: 56px;
-  object-fit: cover;
-  border-radius: 12px;
   border: 1px solid var(--moto-line);
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 .basket-info-box .product-name {
-  margin-left: 12px;
   width: 185px;
+  margin-left: 12px;
   font-family: var(--font-body);
-  font-weight: 500;
   font-size: 16px;
+  font-weight: 500;
   line-height: 24px;
   color: var(--moto-txt);
 }
@@ -356,8 +383,8 @@
 .basket-info-box .product-price {
   width: 80px;
   font-family: var(--font-display);
-  font-weight: 700;
   font-size: 15px;
+  font-weight: 700;
   color: var(--moto-orange);
 }
 
@@ -369,51 +396,54 @@
 }
 
 .basket-frame .basket-order {
-  margin-top: 12px;
-  width: 100%;
-  height: 66px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  width: 100%;
+  height: 66px;
   border-top: 1px solid var(--moto-line);
+  margin-top: 12px;
 }
 
 .basket-order .price {
-  width: 200px;
   display: flex;
+  width: 200px;
   font-family: var(--font-display);
-  font-weight: 700;
   font-size: 18px;
+  font-weight: 700;
   color: var(--moto-txt);
 }
 
 .basket-frame .orders-wrapper {
   position: relative;
+  display: flex;
   overflow: hidden;
+  overflow-y: scroll;
+  flex-direction: column;
   width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
 }
+
 .basket-frame .orders-wrapper::-webkit-scrollbar {
   width: 8px;
 }
+
 .basket-frame .orders-wrapper::-webkit-scrollbar-thumb {
-  background-color: #262d3a;
   border-radius: 5px;
+  background-color: #262d3a;
 }
+
 .basket-frame .orders-wrapper::-webkit-scrollbar-track {
   background: transparent;
 }
 
 .basket-frame .orders-main-wrapper {
   position: relative;
+  display: flex;
   overflow: hidden;
-  margin-top: 10px;
+  flex-direction: column;
   width: 100%;
   height: 260px;
-  display: flex;
-  flex-direction: column;
+  margin-top: 10px;
 }

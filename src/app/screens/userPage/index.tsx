@@ -54,16 +54,6 @@ export default function UserPage() {
                     className={"order-user-avatar"}
                     alt="Rider"
                   />
-                  <div className={"order-user-icon-box"}>
-                    <img
-                      src={
-                        authMember?.memberType === MemberType.RESTAURANT
-                          ? "/icons/restaurant.svg"
-                          : "/icons/user-badge.svg"
-                      }
-                      alt="Member type"
-                    />
-                  </div>
                 </div>
                 <span className={"order-user-name"}>
                   {authMember?.memberNick}

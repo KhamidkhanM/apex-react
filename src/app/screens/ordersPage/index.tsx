@@ -114,17 +114,6 @@ export default function OrdersPage() {
                   className={"order-user-avatar"}
                   alt="Rider"
                 />
-                <div className={"order-user-icon-box"}>
-                  <img
-                    src={
-                      authMember?.memberType === MemberType.RESTAURANT
-                        ? "/icons/restaurant.svg"
-                        : "/icons/user-badge.svg"
-                    }
-                    className={"order-user-prof-img"}
-                    alt="Member type"
-                  />
-                </div>
               </div>
               <span className={"order-user-name"}>{authMember?.memberNick}</span>
               <span className={"order-user-prof"}>{authMember?.memberType}</span>

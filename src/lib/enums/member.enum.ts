@@ -1,7 +1,7 @@
 // who a member account belongs to: a regular site user, a restaurant owner, or an admin
 export enum MemberType {
     USER = "USER", // regular customer account, created via public signup
-    RESTAURANT = "RESTAURANT", // restaurant owner/admin account, created via admin signup
+    STORE = "RESTAURANT", // restaurant owner/admin account, created via admin signup
     ADMIN = "ADMIN" // top-level admin account
 }
 
