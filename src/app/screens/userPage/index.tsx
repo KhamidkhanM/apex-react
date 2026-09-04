@@ -1,3 +1,8 @@
+/**
+ * APEX MOTO — design for src/app/screens/userPage/index.tsx
+ * "My Garage" — the rider's own profile page.
+ * Class names match css/userPage.css from this kit.
+ */
 import { Box, Container, Stack } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import InstagramIcon from "@mui/icons-material/Instagram";
@@ -23,7 +28,9 @@ export default function UserPage() {
         <Stack className={"my-page-frame"}>
           <Stack className={"my-page-left"}>
             <Box display={"flex"} flexDirection={"column"}>
-              <Box className={"menu-name"}>Modify Member Details</Box>
+              <Box className={"menu-name"}>
+                Rider <span>profile</span>
+              </Box>
               <Box className={"menu-content"}>
                 <Settings />
               </Box>
@@ -45,12 +52,12 @@ export default function UserPage() {
                         : "/icons/default-user.svg"
                     }
                     className={"order-user-avatar"}
-                    alt="Member"
+                    alt="Rider"
                   />
                   <div className={"order-user-icon-box"}>
                     <img
                       src={
-                        authMember?.memberType === MemberType.RESTAURANT
+                        authMember?.memberType === MemberType.STORE
                           ? "/icons/restaurant.svg"
                           : "/icons/user-badge.svg"
                       }
@@ -70,16 +77,18 @@ export default function UserPage() {
                     : "No address"}
                 </span>
               </Box>
+
               <Box className={"user-media-box"}>
                 <FacebookIcon />
                 <InstagramIcon />
                 <TelegramIcon />
                 <YouTubeIcon />
               </Box>
+
               <p className={"user-desc"}>
                 {authMember?.memberDesc
                   ? authMember.memberDesc
-                  : "No description"}
+                  : "No bio yet — tell other riders what you ride."}
               </p>
             </Box>
           </Stack>

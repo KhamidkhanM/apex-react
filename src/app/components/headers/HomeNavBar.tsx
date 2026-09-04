@@ -46,7 +46,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
         <Stack className="menu">
           <Box>
             <NavLink to="/">
-              <img className="brand-logo" src="/icons/bumarak.svg" />
+              <img className="brand-logo" src="/icons/apex-moto.svg" />
             </NavLink>
           </Box>
           <Stack className="links">
@@ -57,7 +57,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
             </Box>
             <Box className={"hover-line"}>
               <NavLink to="/products" activeClassName={"underline"}>
-                Products
+                Bikes & Gear
               </NavLink>
             </Box>
             {authMember ? (
@@ -70,7 +70,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
             {authMember ? (
               <Box className={"hover-line"}>
                 <NavLink to="/member-page" activeClassName={"underline"}>
-                  My Page
+                  My Garage
                 </NavLink>
               </Box>
             ) : null}
@@ -157,10 +157,10 @@ export default function HomeNavbar(props: HomeNavbarProps) {
         <Stack className={"header-frame"}>
           <Stack className={"detail"}>
             <Box className={"head-main-txt"}>
-              World's Most Delicious Cousine
+              Built for the apex
             </Box>
-            <Box className={"wel-txt"}>The Choice, not just a choice</Box>
-            <Box className={"service-txt"}> 24 hours service</Box>
+            <Box className={"wel-txt"}>Supersport machines, pro-grade gear and genuine parts.</Box>
+            <Box className={"service-txt"}> Free delivery over $150</Box>
             <Box className={"signup"}>
               {!authMember ? (
                 <Button

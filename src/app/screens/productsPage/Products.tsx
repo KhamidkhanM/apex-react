@@ -42,7 +42,7 @@ export default function Products(props: ProductsProps) {
     page: 1,
     limit: 8,
     order: "createdAt",
-    productCollection: ProductCollection.DISH,
+    productCollection: ProductCollection.BIKE,
     search: "", 
   });
   const [searchText, setSearchText] = useState<string>("");
@@ -157,31 +157,31 @@ export default function Products(props: ProductsProps) {
           <Stack className={"list-category-section"}>
             <Stack className={"product-category"}>
               <div className={"category-main"}>
-                <Button variant={"contained"} 
-                color={productSearch.productCollection === ProductCollection.OTHER ? "primary" : "secondary"} 
-                onClick={() => searchCollectionHandler(ProductCollection.OTHER)}>
-                  Other
-                </Button>
-                <Button variant={"contained"} 
-                color={productSearch.productCollection === ProductCollection.DESSERT ? "primary" : "secondary"} 
-                onClick={() => searchCollectionHandler(ProductCollection.DESSERT)}>
-                  Dessert
-                </Button>
-                <Button variant={"contained"} 
-                color={productSearch.productCollection === ProductCollection.DRINK ? "primary" : "secondary"} 
-                onClick={() => searchCollectionHandler(ProductCollection.DRINK)}>
-                  Drink
-                </Button>
-                <Button variant={"contained"} 
-                color={productSearch.productCollection === ProductCollection.SALAD ? "primary" : "secondary"} 
-                onClick={() => searchCollectionHandler(ProductCollection.SALAD)}>
-                  Salad
-                </Button>
-                <Button variant={"contained"} 
-                color={productSearch.productCollection === ProductCollection.DISH ? "primary" : "secondary"} 
-                onClick={() => searchCollectionHandler(ProductCollection.DISH)}>
-                  Dish
-                </Button>
+                {[
+                  { key: ProductCollection.BIKE, label: "Motorcycles" },
+                  { key: ProductCollection.HELMET, label: "Helmets" },
+                  { key: ProductCollection.APPAREL, label: "Apparel" },
+                  { key: ProductCollection.PARTS, label: "Parts" },
+                  { key: ProductCollection.OTHER, label: "Other" },
+                ].map((cat) => (
+                  <Button
+                    key={cat.key}
+                    variant={"contained"}
+                    className={
+                      productSearch.productCollection === cat.key
+                        ? "cat-active"
+                        : ""
+                    }
+                    color={
+                      productSearch.productCollection === cat.key
+                        ? "primary"
+                        : "secondary"
+                    }
+                    onClick={() => searchCollectionHandler(cat.key)}
+                  >
+                    {cat.label}
+                  </Button>
+                ))}
               </div>
             </Stack>
 
@@ -189,7 +189,10 @@ export default function Products(props: ProductsProps) {
               {products.length !== 0 ? (
                 products.map((product: Product) => {
                   const imagePath = `${serverApi}/${product.productImages[0]}`;
-                  const sizeVolume = product.productCollection === ProductCollection.DRINK ? product.productVolume + " litre " : product.productSize + " size";
+                  const sizeVolume =
+                    product.productCollection === ProductCollection.BIKE
+                      ? product.productVolume + " cc"
+                      : product.productSize + " size";
                   return (
                     <Stack key={product._id}
                     className={"product-card"}

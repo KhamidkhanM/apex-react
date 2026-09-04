@@ -1,3 +1,10 @@
+/**
+ * APEX MOTO — design for src/app/screens/helpPage/index.tsx
+ *
+ * This screen was intentionally left light-themed by the first version of
+ * this kit. It is now finished: dark tabs, dark accordion, dark contact
+ * form. Structure/logic is unchanged from the original Burak file.
+ */
 import React from "react";
 import { Box, Container, Stack, Tabs } from "@mui/material";
 import Typography from "@mui/material/Typography";
@@ -17,7 +24,6 @@ export default function HelpPage() {
   const [value, setValue] = React.useState("1");
 
   /** HANDLERS **/
-  
   const handleChange = (e: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -25,13 +31,20 @@ export default function HelpPage() {
   return (
     <div className={"help-page"}>
       <Container className={"help-container"}>
+        <Box className={"help-head"}>
+          <span className={"section-eyebrow"}>Support</span>
+          <span className={"category-title"}>
+            Rider <span>help desk</span>
+          </span>
+        </Box>
+
         <TabContext value={value}>
           <Box className={"help-menu"}>
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <Tabs
                 value={value}
                 onChange={handleChange}
-                aria-label="lab API tabs example"
+                aria-label="help sections"
                 className={"table_list"}
               >
                 <Tab label="TERMS" value={"1"} />
@@ -40,8 +53,10 @@ export default function HelpPage() {
               </Tabs>
             </Box>
           </Box>
+
           <Stack>
             <Stack className={"help-main-content"}>
+              {/* ---------------- terms ---------------- */}
               <TabPanel value={"1"}>
                 <Stack className={"rules-box"}>
                   <Box className={"rules-frame"}>
@@ -51,6 +66,8 @@ export default function HelpPage() {
                   </Box>
                 </Stack>
               </TabPanel>
+
+              {/* ---------------- faq ---------------- */}
               <TabPanel value={"2"}>
                 <Stack className={"accordion-menu"}>
                   {faq.map((value, number) => {
@@ -58,8 +75,8 @@ export default function HelpPage() {
                       <Accordion key={number}>
                         <AccordionSummary
                           expandIcon={<ExpandMoreIcon />}
-                          aria-controls="panel1a-content"
-                          id="panel1a-header"
+                          aria-controls={`panel${number}-content`}
+                          id={`panel${number}-header`}
                         >
                           <Typography>{value.question}</Typography>
                         </AccordionSummary>
@@ -71,12 +88,18 @@ export default function HelpPage() {
                   })}
                 </Stack>
               </TabPanel>
+
+              {/* ---------------- contact ---------------- */}
               <TabPanel value={"3"}>
                 <Stack className={"admin-letter-box"}>
                   <Stack className={"admin-letter-container"}>
                     <Box className={"admin-letter-frame"}>
-                      <span>Contact us!</span>
-                      <p>Fill out below form to send a message!</p>
+                      <span>Talk to the garage</span>
+                      <p>
+                        Questions about a bike, a part fitment or an order?
+                        Send us a message and we'll come back within one
+                        working day.
+                      </p>
                     </Box>
                     <form
                       action={"#"}
@@ -112,7 +135,7 @@ export default function HelpPage() {
                         sx={{ mt: "30px" }}
                       >
                         <Button type={"submit"} variant="contained">
-                          Send
+                          Send message
                         </Button>
                       </Box>
                     </form>

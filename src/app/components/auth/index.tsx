@@ -1,10 +1,19 @@
+/**
+ * APEX MOTO — design for src/app/components/auth/index.tsx
+ *
+ * Login / signup modals. Handlers, MemberService calls and the props
+ * interface are the original ones; the modal becomes a dark two-pane
+ * card: bike photo on the left, form on the right.
+ *
+ * Styling lives in css/app.css (.auth-modal-* rules) rather than in
+ * makeStyles, so you can restyle it without touching this file.
+ */
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import { Fab, Stack, TextField } from "@mui/material";
-import styled from "styled-components";
+import { Stack } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import { T } from "../../../lib/types/common";
 import { Messages } from "../../../lib/config";
@@ -13,51 +22,39 @@ import MemberService from "../../services/MemberService";
 import { sweetErrorHandling } from "../../../lib/sweetAlert";
 import { useGlobals } from "../../hooks/useGlobals";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   modal: {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
   },
   paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 2, 2),
+    /* the visual styling is in css/app.css under .auth-modal-paper —
+       keeping it there means no theme colours are hard-coded here */
+    outline: "none",
   },
 }));
-const ModalImg = styled.img`
-  width: 62%;
-  height: 100%;
-  border-radius: 10px;
-  background: #000;
-  margin-top: 9px;
-  margin-left: 10px;
-`;
+
 interface AuthenticationModalProps {
   signupOpen: boolean;
   loginOpen: boolean;
   handleSignupClose: () => void;
   handleLoginClose: () => void;
 }
+
 export default function AuthenticationModal(props: AuthenticationModalProps) {
   const { signupOpen, loginOpen, handleSignupClose, handleLoginClose } = props;
   const classes = useStyles();
   const [memberNick, setMemberNick] = useState<string>("");
   const [memberPhone, setMemberPhone] = useState<string>("");
   const [memberPassword, setMemberPassword] = useState<string>("");
-  const {setAuthMember} = useGlobals();
+  const { setAuthMember } = useGlobals();
 
   /** HANDLERS **/
-  const handleUsername = (e: T) => {
-    setMemberNick(e.target.value);
-  };
-  const handlePhone = (e: T) => {
-    setMemberPhone(e.target.value);
-  };
-  const handlePassword = (e: T) => {
-    setMemberPassword(e.target.value);
-  };
+  const handleUsername = (e: T) => setMemberNick(e.target.value);
+  const handlePhone = (e: T) => setMemberPhone(e.target.value);
+  const handlePassword = (e: T) => setMemberPassword(e.target.value);
+
   const handlePasswordKeyDown = (e: T) => {
     if (e.key === "Enter" && signupOpen) {
       handleSignupRequest().then();
@@ -65,6 +62,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       handleLoginRequest().then();
     }
   };
+
   const handleSignupRequest = async () => {
     try {
       const isFulfill =
@@ -78,8 +76,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       const member = new MemberService();
       const result = await member.signup(signupInput);
 
-      // Saving Authenticated user
-      setAuthMember(result); 
+      setAuthMember(result);
       handleSignupClose();
     } catch (err) {
       console.log(err);
@@ -98,7 +95,7 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
       };
       const member = new MemberService();
       const result = await member.login(loginInput);
-      // Saving Authenticated user
+
       setAuthMember(result);
       handleLoginClose();
     } catch (err) {
@@ -110,113 +107,123 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
 
   return (
     <div>
+      {/* ---------------- SIGNUP ---------------- */}
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
+        aria-labelledby="signup-modal-title"
         className={classes.modal}
         open={signupOpen}
         onClose={handleSignupClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
+        BackdropProps={{ timeout: 500 }}
       >
         <Fade in={signupOpen}>
-          <Stack
-            className={classes.paper}
-            direction={"row"}
-            sx={{ width: "800px" }}
-          >
-            <ModalImg src={"/img/auth.webp"} alt="camera" />
-            <Stack sx={{ marginLeft: "69px", alignItems: "center" }}>
-              <h2>Signup Form</h2>
-              <TextField
-                sx={{ marginTop: "7px" }}
-                id="outlined-basic"
-                label="username"
-                variant="outlined"
-                onChange={handleUsername}
+          <Stack className={`${classes.paper} auth-modal-paper`} direction={"row"}>
+            <div className={"auth-modal-visual"}>
+              {/* swap for a local /img/moto/*.jpg once you download your own */}
+              <img
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80"
+                alt="Sport motorcycle"
               />
-              <TextField
-                sx={{ my: "17px" }}
-                id="outlined-basic"
-                label="phone number"
-                variant="outlined"
-                onChange={handlePhone}
-              />
-              <TextField
-                id="outlined-basic"
-                label="password"
-                variant="outlined"
-                onChange={handlePassword}
-                onKeyDown={handlePasswordKeyDown}
-              />
-              <Fab
-                sx={{ marginTop: "30px", width: "120px" }}
-                variant="extended"
-                color="primary"
-                onClick={handleSignupRequest}
-              >
-                <LoginIcon sx={{ mr: 1 }} />
-                Signup
-              </Fab>
-            </Stack>
+              <div className={"auth-modal-visual-txt"}>
+                <span>Join the</span>
+                <b>APEX crew</b>
+              </div>
+            </div>
+
+            <div className={"auth-modal-form"}>
+              <span className={"auth-eyebrow"}>Create account</span>
+              <h2 className={"auth-title"}>
+                Start your <span>engine</span>
+              </h2>
+
+              <div className={"auth-field"}>
+                <label>Rider name</label>
+                <input
+                  type="text"
+                  placeholder="Your username"
+                  onChange={handleUsername}
+                />
+              </div>
+              <div className={"auth-field"}>
+                <label>Phone</label>
+                <input
+                  type="text"
+                  placeholder="Your phone number"
+                  onChange={handlePhone}
+                />
+              </div>
+              <div className={"auth-field"}>
+                <label>Password</label>
+                <input
+                  type="password"
+                  placeholder="Your password"
+                  onChange={handlePassword}
+                  onKeyDown={handlePasswordKeyDown}
+                />
+              </div>
+
+              <button className={"auth-btn"} onClick={handleSignupRequest}>
+                <LoginIcon sx={{ mr: 1, fontSize: 19 }} />
+                Sign up
+              </button>
+            </div>
           </Stack>
         </Fade>
       </Modal>
+
+      {/* ---------------- LOGIN ---------------- */}
       <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
+        aria-labelledby="login-modal-title"
         className={classes.modal}
         open={loginOpen}
         onClose={handleLoginClose}
         closeAfterTransition
         BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
+        BackdropProps={{ timeout: 500 }}
       >
         <Fade in={loginOpen}>
-          <Stack
-            className={classes.paper}
-            direction={"row"}
-            sx={{ width: "700px" }}
-          >
-            <ModalImg src={"/img/auth.webp"} alt="camera" />
-            <Stack
-              sx={{
-                marginLeft: "65px",
-                marginTop: "25px",
-                alignItems: "center",
-              }}
-            >
-              <h2>Login Form</h2>
-              <TextField
-                id="outlined-basic"
-                label="username"
-                variant="outlined"
-                sx={{ my: "10px" }}
-                onChange={handleUsername}
+          <Stack className={`${classes.paper} auth-modal-paper`} direction={"row"}>
+            <div className={"auth-modal-visual"}>
+              <img
+                src="https://images.unsplash.com/photo-1591768793355-74d04bb6608f?auto=format&fit=crop&w=900&q=80"
+                alt="Sport motorcycle"
               />
-              <TextField
-                id={"outlined-basic"}
-                label={"password"}
-                variant={"outlined"}
-                type={"password"}
-                onChange={handlePassword}
-                onKeyDown={handlePasswordKeyDown}
-              />
-              <Fab
-                sx={{ marginTop: "27px", width: "120px" }}
-                variant={"extended"}
-                color={"primary"}
-                onClick={handleLoginRequest}
-              >
-                <LoginIcon sx={{ mr: 1 }} />
+              <div className={"auth-modal-visual-txt"}>
+                <span>Welcome back</span>
+                <b>Ride on</b>
+              </div>
+            </div>
+
+            <div className={"auth-modal-form"}>
+              <span className={"auth-eyebrow"}>Sign in</span>
+              <h2 className={"auth-title"}>
+                Back to the <span>garage</span>
+              </h2>
+
+              <div className={"auth-field"}>
+                <label>Rider name</label>
+                <input
+                  type="text"
+                  placeholder="Your username"
+                  onChange={handleUsername}
+                />
+              </div>
+              <div className={"auth-field"}>
+                <label>Password</label>
+                <input
+                  type="password"
+                  placeholder="Your password"
+                  onChange={handlePassword}
+                  onKeyDown={handlePasswordKeyDown}
+                />
+              </div>
+
+              <button className={"auth-btn"} onClick={handleLoginRequest}>
+                <LoginIcon sx={{ mr: 1, fontSize: 19 }} />
                 Login
-              </Fab>
-            </Stack>
+              </button>
+            </div>
           </Stack>
         </Fade>
       </Modal>

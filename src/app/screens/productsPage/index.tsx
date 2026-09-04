@@ -1,3 +1,8 @@
+/**
+ * APEX MOTO — design for src/app/screens/productsPage/index.tsx
+ * Routing is unchanged from the original — only the wrapper class name and
+ * the imported css differ.
+ */
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import ChosenProduct from "./ChosenProduct";
 import Products from "./Products";
@@ -11,7 +16,6 @@ interface ProductsPageProps {
 export default function ProductsPage(props: ProductsPageProps) {
   const { onAdd } = props;
   const products = useRouteMatch();
-  console.log("products:", products);
 
   return (
     <div className={"products-page"}>

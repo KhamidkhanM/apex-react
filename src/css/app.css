@@ -1,39 +1,262 @@
-.App {
-  text-align: center;
+/* ============================================================
+   APEX MOTO — app-level styles
+   Replaces: src/css/app.css
+   Holds the auth modal, the SweetAlert2 dark skin, and a couple of
+   global MUI overrides that apply on every screen.
+   ============================================================ */
+
+/* ============================================================
+   AUTH MODAL  (src/app/components/auth/index.tsx)
+   ============================================================ */
+
+.auth-modal-paper {
+  width: 860px;
+  max-width: calc(100vw - 40px);
+  max-height: calc(100vh - 40px);
+  background: var(--moto-panel);
+  border: 1px solid var(--moto-line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65);
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* ---------------- left visual pane ---------------- */
+
+.auth-modal-visual {
+  position: relative;
+  flex: 0 0 44%;
+  min-height: 480px;
+}
+.auth-modal-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/* dark scrim so the caption stays readable over any photo */
+.auth-modal-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 12, 16, 0.15) 0%,
+    rgba(10, 12, 16, 0.9) 100%
+  );
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
+.auth-modal-visual-txt {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  z-index: 1;
   display: flex;
   flex-direction: column;
+}
+.auth-modal-visual-txt span {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--moto-orange);
+}
+.auth-modal-visual-txt b {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* ---------------- right form pane ---------------- */
+
+.auth-modal-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 44px 44px 40px;
+  overflow-y: auto;
+}
+
+.auth-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--moto-orange);
+}
+.auth-eyebrow::before {
+  content: "";
+  width: 30px;
+  height: 2px;
+  background: var(--moto-grad);
+  transform: skewX(-30deg);
+}
+
+.auth-title {
+  margin: 14px 0 30px;
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.12;
+  text-transform: uppercase;
+  color: var(--moto-txt);
+}
+.auth-title span {
+  background: var(--moto-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+.auth-field label {
+  margin-bottom: 9px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--moto-muted);
+}
+.auth-field input {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--moto-card);
+  border: 1px solid var(--moto-line);
+  border-radius: 10px;
+  color: var(--moto-txt);
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.auth-field input::placeholder {
+  color: #5b6472;
+}
+.auth-field input:focus {
+  outline: none;
+  border-color: var(--moto-orange);
+  box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.15);
+}
+
+.auth-btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-top: 14px;
+  padding: 15px 36px;
+  border: none;
+  background: var(--moto-grad);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+  transition: transform 0.25s ease, filter 0.25s ease, box-shadow 0.25s ease;
+}
+.auth-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.12);
+  box-shadow: var(--glow-red);
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+/* stack the two panes on narrow screens and drop the photo */
+@media (max-width: 760px) {
+  .auth-modal-paper {
+    flex-direction: column !important;
+    width: 420px;
+  }
+  .auth-modal-visual {
+    flex: 0 0 150px;
+    min-height: 150px;
+  }
+  .auth-modal-visual-txt b {
+    font-size: 23px;
+  }
+  .auth-modal-form {
+    padding: 28px 24px 26px;
+  }
+  .auth-title {
+    font-size: 25px;
+    margin-bottom: 22px;
+  }
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+/* ============================================================
+   SWEETALERT2 — dark skin
+   The project calls sweetErrorHandling / sweetTopSuccessAlert from
+   src/lib/sweetAlert.ts; these rules re-theme those popups.
+   ============================================================ */
+
+.swal2-popup {
+  background: var(--moto-panel) !important;
+  border: 1px solid var(--moto-line) !important;
+  border-radius: var(--radius-md) !important;
+  color: var(--moto-txt) !important;
+  font-family: var(--font-body) !important;
+}
+.swal2-title,
+.swal2-html-container {
+  color: var(--moto-txt) !important;
+}
+.swal2-title {
+  font-family: var(--font-display) !important;
+  letter-spacing: 0.5px;
+}
+.swal2-styled.swal2-confirm {
+  background: var(--moto-grad) !important;
+  border-radius: 8px !important;
+  font-family: var(--font-display) !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  box-shadow: none !important;
+}
+.swal2-timer-progress-bar {
+  background: var(--moto-grad) !important;
+}
+
+/* ============================================================
+   GLOBAL MUI OVERRIDES
+   ============================================================ */
+
+/* MUI Container keeps the storefront on one consistent width */
+.MuiContainer-root {
+  max-width: 1240px !important;
+}
+
+/* Ratings — gold stars read badly on near-black; use the racing orange */
+.MuiRating-iconFilled {
+  color: var(--moto-orange) !important;
+}
+.MuiRating-iconEmpty {
+  color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* MUI Divider / borderColor:"divider" used on tab strips */
+.MuiDivider-root {
+  border-color: var(--moto-line) !important;
+}
+
+/* Badge on the basket icon */
+.MuiBadge-badge {
+  background: var(--moto-grad) !important;
+  color: #fff !important;
+  font-family: var(--font-display);
+  font-weight: 700;
 }

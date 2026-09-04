@@ -52,7 +52,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
         <Stack className="menu">
           <Box>
             <NavLink to="/">
-              <img className="brand-logo" src="/icons/bumarak.svg" />
+              <img className="brand-logo" src="/icons/apex-moto.svg" />
             </NavLink>
           </Box>
           <Stack className="links">
@@ -61,7 +61,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
             </Box>
             <Box className={"hover-line"}>
               <NavLink to="/products" activeClassName={"underline"}>
-                Products
+                Bikes & Gear
               </NavLink>
             </Box>
             {authMember ? (
@@ -74,7 +74,7 @@ export default function OtherNavbar(props: OtherNavbarProps) {
             {authMember ? (
               <Box className={"hover-line"}>
                 <NavLink to="/member-page" activeClassName={"underline"}>
-                  My Page
+                  My Garage
                 </NavLink>
               </Box>
             ) : null}

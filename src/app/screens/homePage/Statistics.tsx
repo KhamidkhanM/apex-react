@@ -1,4 +1,6 @@
-import React from "react";
+/**
+ * APEX MOTO — design for src/app/screens/homePage/Statistics.tsx
+ */
 import { Box, Container, Stack } from "@mui/material";
 import Divider from "../../components/divider";
 
@@ -8,23 +10,23 @@ export default function Statistics() {
       <Container>
         <Stack className="info">
           <Stack className="static-box">
-            <Box className="static-num">12</Box>
-            <Box className="static-text">Restaurants</Box>
+            <Box className="static-num">120+</Box>
+            <Box className="static-text">Bikes in stock</Box>
           </Stack>
-          <Divider height="64" width="2" bg="#E3C08D" />
+          <Divider height="64" width="2" bg="#242b38" />
           <Stack className="static-box">
-            <Box className="static-num">8</Box>
-            <Box className="static-text">Experience</Box>
+            <Box className="static-num">15</Box>
+            <Box className="static-text">World brands</Box>
           </Stack>
-          <Divider height="64" width="2" bg="#E3C08D" />
+          <Divider height="64" width="2" bg="#242b38" />
           <Stack className="static-box">
-            <Box className="static-num">50+</Box>
-            <Box className="static-text">Menu</Box>
+            <Box className="static-num">9</Box>
+            <Box className="static-text">Years on track</Box>
           </Stack>
-          <Divider height="64" width="2" bg="#E3C08D" />
+          <Divider height="64" width="2" bg="#242b38" />
           <Stack className="static-box">
-            <Box className="static-num">200+</Box>
-            <Box className="static-text">Clients</Box>
+            <Box className="static-num">4.9★</Box>
+            <Box className="static-text">Rider rating</Box>
           </Stack>
         </Stack>
       </Container>

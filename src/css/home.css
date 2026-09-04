@@ -1,493 +1,547 @@
+/* ============================================================
+   APEX MOTO — homepage sections
+   HOW TO USE: replaces src/css/home.css
+   Section class mapping vs original Burak:
+     .popular-dishes-frame  ->  .popular-bikes-frame
+     .new-products-frame    ->  .new-products-frame (same)
+     .ads-restaurant-frame  ->  .promo-frame
+     .active-users-frame    ->  .top-riders-frame
+   ============================================================ */
+
 .homepage {
-  width: 100%;
-  height: auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--moto-bg);
 }
 
-/** STATISTICS **/
-
-.homepage .static-frame {
-  width: 100%;
-  height: 236px;
-  background: #343434;
+/* shared heading block inside each section */
+.section-head {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 46px;
 }
 
-.homepage .static-frame .info {
+/* ==================== STATS STRIP ==================== */
+
+.static-frame {
+  width: 100%;
+  padding: 36px 0;
+  background: var(--moto-panel);
+  border-top: 1px solid var(--moto-line);
+  border-bottom: 1px solid var(--moto-line);
+}
+
+.static-frame .info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.static-frame .static-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.static-frame .static-num {
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-style: italic;
+  font-weight: 700;
+  background: var(--moto-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.static-frame .static-text {
+  font-size: 13px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--moto-muted);
+}
+
+/* ==================== SHARED CARD LOOK ==================== */
+
+.popular-bikes-frame .card,
+.new-products-frame .card,
+.top-riders-frame .card {
+  position: relative;
+  padding: 0 !important;
+  gap: 0 !important;
+  background: var(--moto-card) !important;
+  border: 1px solid var(--moto-line) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform 0.35s ease, border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.popular-bikes-frame .card:hover,
+.new-products-frame .card:hover,
+.top-riders-frame .card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(255, 77, 0, 0.55) !important;
+  box-shadow: 0 22px 44px rgba(0, 0, 0, 0.6);
+}
+
+/* ==================== POPULAR BIKES ==================== */
+
+.popular-bikes-frame {
+  padding: 110px 0 50px;
+  background: var(--moto-bg);
+}
+
+.popular-bikes-frame .popular-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.popular-bikes-frame .cards-frame {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.popular-bikes-frame .card {
+  width: 300px;
+  height: 400px;
+}
+
+.popular-bikes-frame .card img {
+  width: 100%;
   height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.popular-bikes-frame .card:hover img {
+  transform: scale(1.06);
 }
 
-.homepage .static-frame .info .static-box {
-  width: 200px;
-  height: 116px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.homepage .static-frame .info .static-box .static-num {
-  text-align: center;
-  font-family: "Poppins";
-  font-size: 54px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 80px;
-  color: #d7b686;
-}
-
-.homepage .static-frame .info .static-box .static-text {
-  text-align: center;
-  font-family: "Poppins";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 30px;
-  color: #d7b586;
-}
-
-/** POPULAR DISHES **/
-
-.homepage .popular-dishes-frame {
-  width: 100%;
-  height: 580px;
-  display: flex;
-  background: #f8f8ff;
-}
-
-.homepage .popular-dishes-frame .popular-section {
-  margin-top: 45px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.homepage .popular-dishes-frame .popular-section .category-title {
-  text-align: center;
-  font-family: "Roboto Serif";
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  letter-spacing: 1.44px;
-  color: #000;
-}
-
-.homepage .popular-dishes-frame .popular-section .cards-frame {
-  width: 100%;
-  margin-top: 43px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.homepage .popular-dishes-frame .cards-frame .card {
-  min-height: 430px;
-  min-width: 300px;
-  cursor: pointer;
-}
-
-.homepage .popular-dishes-frame .cards-frame .card .card-cover {
+/* dark gradient over the photo (2nd CardCover) */
+.popular-bikes-frame .card-cover {
   background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0) 200px
-    ),
-    linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) 300px);
+    180deg,
+    rgba(6, 7, 10, 0.05) 35%,
+    rgba(6, 7, 10, 0.92) 100%
+  ) !important;
 }
 
-.homepage .popular-dishes-frame .no-data {
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 34px;
-  color: #e3c08d;
-}
-
-/** NEW PRODUCTS **/
-
-.homepage .new-products-frame {
-  width: 100%;
-  height: 605px;
-  background: #f8f8ff;
-  display: flex;
-}
-
-.homepage .main {
-  margin-top: 45px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.homepage .new-products-frame .category-title {
-  font-family: "Dancing Script";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 43px;
-}
-
-.homepage .new-products-frame .main .cards-frame {
-  width: 100%;
-  margin: 47px 2px 2px 2px;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.homepage .new-products-frame .main .card {
-  height: 335px;
-  width: 290px;
-  cursor: pointer;
-}
-
-.homepage .new-products-frame .product-sale {
+.popular-bikes-frame .bike-tag {
   position: absolute;
-  margin-top: 10px;
-  z-index: 100;
-  width: 90px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ff9200;
-  box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 25px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 600;
+  top: 16px;
+  left: 0;
+  z-index: 2;
+  padding: 7px 18px;
+  background: var(--moto-grad);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  font-family: var(--font-display);
   font-size: 12px;
-  line-height: 21px;
-  color: #f8f8ff;
-}
-
-.homepage .new-products-frame .product-detail {
-  width: auto;
-  height: 49%;
-  display: flex;
-  justify-content: center;
-  margin-top: -12px;
-  border-top: 1px solid;
-  border-color: #f8f8ff;
-  background-color: #fafbfb;
-}
-
-.homepage .new-products-frame .product-detail .info {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.homepage .new-products-frame .product-detail .title {
-  width: 65px;
-  font-weight: 500;
-}
-
-.homepage .new-products-frame .product-detail .price {
-  margin-left: 10px;
-  width: 20px;
-  font-weight: 500;
-}
-
-.homepage .new-products-frame .product-detail .divider {
-  margin: 0 10px 0 10px;
-  width: 2px;
-  background-color: #d9d9d9;
-}
-
-.homepage .new-products-frame .product-detail .views {
-  display: flex;
-  align-items: center;
-  font-weight: 500;
-}
-
-.homepage .new-products-frame .no-data {
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 34px;
-  color: #e3c08d;
-}
-
-/** ADVERTISEMENT **/
-
-.homepage .ads-restaurant-frame {
-  width: 100%;
-  height: 693px;
-  display: flex;
-  overflow: hidden;
-  transform: perspective(0px);
-  box-shadow: -3px 0px 20px 14px #34343480;
-}
-
-.homepage .ads-restaurant-frame .ads-video {
-  width: 100%;
-  background: #0c0e12;
-  display: flex;
-  box-shadow: 0px -8px 90px rgb(215 215 255);
-  transform: scale(1.5);
-  overflow: hidden;
-}
-
-/** ACTIVE USERS **/
-
-.homepage .active-users-frame {
-  width: 100%;
-  height: 550px;
-  background: #f8f8ff;
-  display: flex;
-}
-
-.homepage .active-users-frame .main {
-  padding-top: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.homepage .active-users-frame .category-title {
-  font-family: "Dancing Script";
-  font-style: normal;
   font-weight: 700;
-  font-size: 36px;
-  line-height: 43px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
 }
 
-.homepage .cards-frame {
-  width: 100%;
-  margin-top: 20px;
-  flex-direction: row;
-}
-
-.homepage .cards-frame .card {
-  margin: 5px;
-  min-height: 305px;
-  min-width: 305px;
-  cursor: pointer;
-}
-
-.homepage .cards-frame .member-nickname {
-  font-size: medium;
-  text-align: center;
-}
-
-.homepage .cards-frame .no-data {
-  width: 100%;
-  height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: capitalize;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 30px;
-  line-height: 34px;
-  color: #e3c08d;
-}
-
-/** EVENTS **/
-
-.homepage .events-frame {
-  width: 100%;
-  height: 745px;
-  background: #f8f8ff;
-  display: flex;
-}
-
-.homepage .events-frame .category-title {
-  font-family: "Dancing Script";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 36px;
-  line-height: 43px;
-  padding-top: 20px;
-}
-
-.homepage .events-frame .events-main {
-  position: relative;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.homepage .events-frame .events-main .events-text {
-  width: auto;
-  height: 70px;
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.homepage .events-frame .events-main .prev-next-frame {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 250px;
-  margin: 40px 0 40px 0;
-  height: 25px;
-}
-
-.homepage .events-frame .dot-frame-pagination {
-  position: relative;
-  width: auto;
-  display: flex;
-}
-
-.homepage .events-frame .events-main .events-info {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.homepage .events-frame .events-info .events-info-frame {
-  position: relative;
-  width: 500px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.homepage .events-frame .events-img {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  border-radius: 10px;
-  background-size: cover;
-}
-
-.homepage .events-frame .events-desc {
+.popular-bikes-frame .card-bottom {
   position: absolute;
-  margin-bottom: 7px;
-  padding: 10px;
-  display: flex;
-  width: 90%;
-  height: auto;
-  bottom: 5px;
-  background: #f8f8ff;
-  box-shadow: 0px 40px 30px rgba(25, 25, 46, 0.04);
-  border-radius: 8px;
-}
-
-.homepage .events-frame .events-desc .events-bott {
-  width: 97%;
-  height: auto;
+  left: 22px;
+  right: 22px;
+  bottom: 18px;
+  z-index: 2;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
+  padding: 0;
 }
 
-.homepage .events-frame .events-desc .events-bott .bott-left {
-  width: 100%;
-  height: 100%;
+.popular-bikes-frame .bike-name {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.popular-bikes-frame .bike-price {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--moto-orange);
+}
+
+.popular-bikes-frame .bike-views {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #aeb6c2;
+  font-size: 14px;
+}
+
+/* ==================== NEW ARRIVALS ==================== */
+
+.new-products-frame {
+  padding: 96px 0;
+  background: var(--moto-panel);
+  border-top: 1px solid var(--moto-line);
+  border-bottom: 1px solid var(--moto-line);
+}
+
+.new-products-frame .main {
   display: flex;
   flex-direction: column;
 }
 
-.homepage .events-frame .bott-left .event-title-speaker {
+.new-products-frame .cards-frame {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
-.homepage .events-frame .event-title-speaker .event-organizator {
+.new-products-frame .card {
+  width: 290px;
+}
+
+.new-products-frame .product-sale {
+  position: absolute;
+  top: 14px;
+  left: 0;
+  z-index: 2;
+  padding: 6px 16px;
+  background: var(--moto-grad);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.new-products-frame .card img {
+  transition: transform 0.5s ease;
+}
+.new-products-frame .card:hover img {
+  transform: scale(1.05);
+}
+
+.new-products-frame .product-detail {
   display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px 18px;
+  background: var(--moto-card);
+  border-top: 1px solid var(--moto-line);
+}
+
+.new-products-frame .product-detail .title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--moto-txt);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.new-products-frame .product-detail .meta {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
 }
 
-.homepage .events-frame .event-title-speaker .event-organizator img {
-  width: 20px;
-  margin-right: 10px;
-}
-
-.homepage .events-frame .event-organizator .spec-text-author {
-  font-family: "GT Walsheim Pro";
-  font-style: normal;
-  line-height: 34px;
-  color: #140342;
-}
-
-.homepage .events-frame .bott-left .text-desc {
-  margin-top: 10px;
-  font-family: "GT Walsheim Pro";
-  font-style: normal;
-  font-weight: 400;
+.new-products-frame .product-detail .price {
+  font-family: var(--font-display);
   font-size: 17px;
-  line-height: 26px;
-  color: #4f547b;
+  font-weight: 700;
+  color: var(--moto-orange);
 }
 
-.homepage .events-frame .bott-left .bott-info {
-  margin-top: 10px;
+.new-products-frame .product-detail .views {
   display: flex;
-  justify-content: flex-end;
-  flex-direction: row;
-  width: 100%;
-  height: 16px;
-}
-
-.homepage .events-frame .bott-info .bott-info-main {
-  margin-left: 10px;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  width: auto;
-  height: 100%;
-  font-family: "GT Walsheim Pro";
-  font-style: normal;
-  font-weight: 400;
+  align-items: center;
+  gap: 5px;
+  color: var(--moto-muted);
   font-size: 14px;
-  line-height: 16px;
-  color: #4f547b;
 }
 
-.homepage .events-frame .bott-info .bott-info-main img {
-  margin-right: 10px;
+/* ==================== PROMO BANNER ==================== */
+
+.promo-frame {
+  position: relative;
+  width: 100%;
+  padding: 120px 0;
+  background: linear-gradient(
+      100deg,
+      rgba(10, 12, 16, 0.94) 30%,
+      rgba(10, 12, 16, 0.45) 100%
+    ),
+    url("https://images.unsplash.com/photo-1558981403-c5f9899a28bc?auto=format&fit=crop&w=1920&q=80")
+      center / cover no-repeat fixed;
 }
 
-.homepage .events-frame .swiper-wrapper {
+.promo-frame .promo-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 640px;
+}
+
+.promo-frame .promo-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: var(--moto-txt);
+}
+
+.promo-frame .promo-desc {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #c7cdd6;
+}
+
+.promo-frame .promo-note {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--moto-muted);
+}
+
+/* ==================== TOP RIDERS ==================== */
+
+.top-riders-frame {
+  padding: 100px 0 50px;
+  background: var(--moto-bg);
+}
+
+.top-riders-frame .main {
+  display: flex;
+  flex-direction: column;
+}
+
+.top-riders-frame .cards-frame {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 24px;
 }
 
-.homepage .events-frame .swiper-pagination-bullet {
-  margin-right: 5px;
-  width: 8px;
-  height: 8px;
+.top-riders-frame .card {
+  width: 285px;
   text-align: center;
-  opacity: 1;
-  background: #f8f8ff;
-  border-radius: 50%;
 }
 
-.homepage .events-frame .swiper-pagination-bullet-active {
-  background: #343434;
+.top-riders-frame .card img {
+  filter: saturate(0.92);
+  transition: transform 0.5s ease;
+}
+.top-riders-frame .card:hover img {
+  transform: scale(1.05);
+}
+
+.top-riders-frame .rider-info {
+  padding: 16px 0 18px;
+  background: var(--moto-card);
+  border-top: 1px solid var(--moto-line);
+}
+
+.top-riders-frame .member-nickname {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  font-style: italic;
+  text-transform: uppercase;
+  color: var(--moto-txt);
+}
+
+.top-riders-frame .member-role {
+  margin-top: 4px;
+  font-size: 12.5px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--moto-muted);
+}
+
+/* ==================== EVENTS (swiper) ==================== */
+
+.events-frame {
+  width: 100%;
+  padding: 100px 0 110px;
+  background: var(--moto-panel);
+  border-top: 1px solid var(--moto-line);
+  overflow: hidden;
+}
+
+.events-main {
+  position: relative;
+  max-width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.events-text {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 44px;
+}
+
+.events-info-frame {
+  width: 940px;
+  display: flex !important;
+  flex-direction: row;
+  background: var(--moto-card);
+  border: 1px solid var(--moto-line);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.events-info-frame .events-img {
+  width: 420px;
+  height: 330px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.events-desc {
+  display: flex;
+  padding: 34px 38px;
+}
+
+.events-bott {
+  display: flex;
+}
+
+.event-title-speaker strong {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--moto-txt);
+}
+
+.event-organizator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.event-organizator img {
+  width: 18px;
+  filter: invert(0.55);
+}
+
+.spec-text-author {
+  margin: 0;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--moto-orange);
+}
+
+.text-desc {
+  margin: 20px 0 0;
+  max-width: 420px;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #c2c9d2;
+}
+
+.bott-info {
+  display: flex;
+  flex-direction: row;
+  gap: 28px;
+  margin-top: 28px;
+}
+
+.bott-info-main {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--moto-muted);
+}
+.bott-info-main img {
+  width: 18px;
+  filter: invert(0.55);
+}
+
+/* prev / next / pagination */
+
+.prev-next-frame {
+  margin-top: 44px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 26px;
+}
+
+.prev-next-frame .swiper-button-prev,
+.prev-next-frame .swiper-button-next {
+  position: static;
+  margin: 0;
+  width: 22px;
+  height: 22px;
+  padding: 11px;
+  border: 1px solid var(--moto-line);
   border-radius: 50%;
+  background: var(--moto-card);
+  cursor: pointer;
+  filter: invert(0.9);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.prev-next-frame .swiper-button-prev:hover,
+.prev-next-frame .swiper-button-next:hover {
+  border-color: rgba(255, 77, 0, 0.6);
+  box-shadow: var(--glow-red);
+}
+.prev-next-frame .swiper-button-prev:after,
+.prev-next-frame .swiper-button-next:after {
+  display: none;
+}
+
+.dot-frame-pagination {
+  position: static;
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+}
+
+.dot-frame-pagination .swiper-pagination-bullet {
+  width: 28px;
+  height: 4px;
+  border-radius: 2px;
+  background: #39424f;
+  opacity: 1;
+  transition: background 0.25s ease;
+}
+.dot-frame-pagination .swiper-pagination-bullet-active {
+  background: var(--moto-orange);
 }

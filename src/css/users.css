@@ -1,0 +1,141 @@
+/* ============================================================
+   APEX MOTO — Riders / community page
+   Goes to: src/css/users.css  (new file — import it from
+   src/app/screens/usersPage/index.tsx, which this kit already does)
+   ============================================================ */
+
+.users-page {
+  padding: 78px 0 100px;
+  background: var(--moto-bg);
+}
+
+.users-frame {
+  gap: 46px;
+}
+
+.users-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.users-sub {
+  max-width: 560px;
+  margin: 4px 0 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--moto-muted);
+}
+
+/* ---------------- grid ---------------- */
+
+.riders-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(258px, 1fr));
+  gap: 22px;
+}
+
+.rider-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 34px 26px 28px;
+  text-align: center;
+  background: var(--moto-card);
+  border: 1px solid var(--moto-line);
+  border-radius: var(--radius-lg);
+  transition: transform 0.28s ease, border-color 0.28s ease,
+    box-shadow 0.28s ease;
+}
+.rider-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 77, 0, 0.45);
+  box-shadow: var(--shadow-card), var(--glow-red);
+}
+
+.rider-img-box {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  margin-bottom: 18px;
+  padding: 3px;
+  background: var(--moto-grad);
+  border-radius: 50%;
+}
+.rider-img-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--moto-panel);
+  border: 3px solid var(--moto-card);
+  border-radius: 50%;
+}
+
+.rider-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--moto-txt);
+}
+
+.rider-type {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--moto-orange);
+}
+
+.rider-desc {
+  margin: 14px 0 20px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--moto-muted);
+  /* keep every card the same height regardless of bio length */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rider-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: auto;
+  padding: 9px 20px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--moto-line);
+  border-radius: 999px;
+}
+.rider-stat b {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-style: italic;
+  background: var(--moto-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.rider-stat span {
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--moto-muted);
+}
+
+@media (max-width: 620px) {
+  .users-page {
+    padding: 46px 0 70px;
+  }
+  .riders-grid {
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 16px;
+  }
+}

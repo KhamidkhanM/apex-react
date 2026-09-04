@@ -1,3 +1,10 @@
+/**
+ * APEX MOTO — design for src/app/screens/ordersPage/index.tsx
+ *
+ * UI only. All redux wiring, OrderService calls and the authMember guard are
+ * kept exactly as in the original Burak file — only labels, chips and the
+ * right-hand "rider card" are restyled. Class names match css/order.css.
+ */
 import { useState, SyntheticEvent, useEffect } from "react";
 import { Container, Stack, Box } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
@@ -28,8 +35,9 @@ const actionDispatch = (dispatch: Dispatch) => ({
 });
 
 export default function OrdersPage() {
-  const {setPausedOrders, setProcessOrders, setFinishedOrders} = actionDispatch(useDispatch());
-  const {orderBuilder, authMember} = useGlobals();
+  const { setPausedOrders, setProcessOrders, setFinishedOrders } =
+    actionDispatch(useDispatch());
+  const { orderBuilder, authMember } = useGlobals();
   const history = useHistory();
   const [value, setValue] = useState("1");
   const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
@@ -38,24 +46,26 @@ export default function OrdersPage() {
     orderStatus: OrderStatus.PAUSE,
   });
 
-
   useEffect(() => {
     const order = new OrderService();
 
-    order.getMyOrders({...orderInquiry, orderStatus: OrderStatus.PAUSE})
-    .then((data) => setPausedOrders(data))
-    .catch((err) => console.log(err));
+    order
+      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PAUSE })
+      .then((data) => setPausedOrders(data))
+      .catch((err) => console.log(err));
 
-    order.getMyOrders({...orderInquiry, orderStatus: OrderStatus.PROCESS})
-    .then((data) => setProcessOrders(data))
-    .catch((err) => console.log(err));
+    order
+      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PROCESS })
+      .then((data) => setProcessOrders(data))
+      .catch((err) => console.log(err));
 
-    order.getMyOrders({...orderInquiry, orderStatus: OrderStatus.FINISH})
-    .then((data) => setFinishedOrders(data))
-    .catch((err) => console.log(err));
+    order
+      .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.FINISH })
+      .then((data) => setFinishedOrders(data))
+      .catch((err) => console.log(err));
   }, [orderInquiry, orderBuilder]);
 
-  /** Handlers **/
+  /** HANDLERS **/
   const handleChange = (e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
@@ -72,23 +82,25 @@ export default function OrdersPage() {
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  aria-label="basic tabs example"
+                  aria-label="order status tabs"
                   className={"table_list"}
                 >
-                  <Tab label="PAUSED ORDERS" value={"1"} />
-                  <Tab label="PROCESS ORDERS" value={"2"} />
-                  <Tab label="FINISHED ORDERS" value={"3"} />
+                  {/* moto wording for the three order states */}
+                  <Tab label="IN THE BASKET" value={"1"} />
+                  <Tab label="ON THE WAY" value={"2"} />
+                  <Tab label="DELIVERED" value={"3"} />
                 </Tabs>
               </Box>
             </Box>
             <Stack className={"order-main-content"}>
-              <PausedOrders setValue={setValue}/>
-              <ProcessOrders setValue={setValue}/>
+              <PausedOrders setValue={setValue} />
+              <ProcessOrders setValue={setValue} />
               <FinishedOrders />
             </Stack>
           </TabContext>
         </Stack>
 
+        {/* ---------------- rider card + payment ---------------- */}
         <Stack className={"order-right"}>
           <Box className={"order-info-box"}>
             <Box className={"member-box"}>
@@ -100,12 +112,12 @@ export default function OrdersPage() {
                       : "/icons/default-user.svg"
                   }
                   className={"order-user-avatar"}
-                  alt="Member"
+                  alt="Rider"
                 />
                 <div className={"order-user-icon-box"}>
                   <img
                     src={
-                      authMember?.memberType === MemberType.RESTAURANT
+                      authMember?.memberType === MemberType.STORE
                         ? "/icons/restaurant.svg"
                         : "/icons/user-badge.svg"
                     }
@@ -114,12 +126,8 @@ export default function OrdersPage() {
                   />
                 </div>
               </div>
-              <span className={"order-user-name"}>
-                {authMember?.memberNick}
-              </span>
-              <span className={"order-user-prof"}>
-                {authMember?.memberType}
-              </span>
+              <span className={"order-user-name"}>{authMember?.memberNick}</span>
+              <span className={"order-user-prof"}>{authMember?.memberType}</span>
             </Box>
             <Box className={"liner"}></Box>
             <Box className={"order-user-address"}>
@@ -129,10 +137,11 @@ export default function OrdersPage() {
               <div className={"spec-address-txt"}>
                 {authMember?.memberAddress
                   ? authMember.memberAddress
-                  : " Do not exist"}
+                  : "No delivery address yet"}
               </div>
             </Box>
           </Box>
+
           <Box className={"order-info-box"} sx={{ mt: "15px" }}>
             <input
               type={"text"}
@@ -150,7 +159,7 @@ export default function OrdersPage() {
               <input
                 type={"text"}
                 name={"cardPeriod"}
-                placeholder={"07 / 24"}
+                placeholder={"07 / 28"}
                 className={"card-half-input"}
               />
               <input
@@ -163,15 +172,17 @@ export default function OrdersPage() {
             <input
               type={"text"}
               name={"cardCreator"}
-              placeholder={"Justin Robertson"}
+              placeholder={"Card holder name"}
               className={"card-input"}
             />
             <div className={"cards-box"}>
-              <img src={"/icons/western-card.svg"} />
-              <img src={"/icons/master-card.svg"} />
-              <img src={"/icons/paypal-card.svg"} />
-              <img src={"/icons/visa-card.svg"} />
+              <img src={"/icons/western-card.svg"} alt="western union" />
+              <img src={"/icons/master-card.svg"} alt="mastercard" />
+              <img src={"/icons/paypal-card.svg"} alt="paypal" />
+              <img src={"/icons/visa-card.svg"} alt="visa" />
             </div>
+            {/* free-shipping note, matches the $150 threshold used in the hero */}
+            <div className={"pay-chip"}>Free delivery on orders over $150</div>
           </Box>
         </Stack>
       </Container>

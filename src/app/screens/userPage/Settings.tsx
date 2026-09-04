@@ -1,3 +1,8 @@
+/**
+ * APEX MOTO — design for src/app/screens/userPage/Settings.tsx
+ * Profile edit form. Every handler, field name and MemberService call is
+ * the original; only labels, placeholders and the save button are restyled.
+ */
 import { Box } from "@mui/material";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import Button from "@mui/material/Button";
@@ -17,7 +22,7 @@ export function Settings() {
   const [memberImage, setMemberImage] = useState<string>(
     authMember?.memberImage
       ? `${serverApi}/${authMember.memberImage}`
-      : "/icons/default-user.svg",
+      : "/icons/default-user.svg"
   );
   const [memberUpdateInput, setMemberUpdateInput] = useState<MemberUpdateInput>({
     memberNick: authMember?.memberNick,
@@ -58,7 +63,7 @@ export function Settings() {
       const member = new MemberService();
       const result = await member.updateMember(memberUpdateInput);
       setAuthMember(result);
-      await sweetTopSmallSuccessAlert("Modified seccessfully!", 700);
+      await sweetTopSmallSuccessAlert("Profile updated!", 700);
     } catch (err) {
       console.log(err);
       sweetErrorHandling(err).then();
@@ -66,7 +71,6 @@ export function Settings() {
   };
   const handleImageViewer = (e: T) => {
     const file = e.target.files[0];
-    console.log("file:", file);
     const fileType = file.type,
       validateImageTypes = ["image/jpeg", "image/png", "image/jpg"];
 
@@ -84,21 +88,27 @@ export function Settings() {
   return (
     <Box className={"settings"}>
       <Box className={"member-media-frame"}>
-        <img src={memberImage} className={"mb-image"} alt="Member" />
+        <img src={memberImage} className={"mb-image"} alt="Rider" />
         <div className={"media-change-box"}>
-          <span>Upload image</span>
-          <p>JPG, JPEG, PNG formats only!</p>
+          <span>Rider photo</span>
+          <p>JPG, JPEG or PNG only</p>
           <div className={"up-del-box"}>
-            <Button component="label" onChange={handleImageViewer}>
+            <Button
+              component="label"
+              className={"upload-btn"}
+              onChange={handleImageViewer}
+            >
               <CloudDownloadIcon />
+              Upload
               <input type="file" hidden />
             </Button>
           </div>
         </div>
       </Box>
+
       <Box className={"input-frame"}>
         <div className={"long-input"}>
-          <label className={"spec-label"}>Username</label>
+          <label className={"spec-label"}>Rider name</label>
           <input
             className={"spec-input mb-nick"}
             type="text"
@@ -109,6 +119,7 @@ export function Settings() {
           />
         </div>
       </Box>
+
       <Box className={"input-frame"}>
         <div className={"short-input"}>
           <label className={"spec-label"}>Phone</label>
@@ -122,9 +133,9 @@ export function Settings() {
           />
         </div>
         <div className={"short-input"}>
-          <label className={"spec-label"}>Address</label>
+          <label className={"spec-label"}>Delivery address</label>
           <input
-            className={"spec-input  mb-address"}
+            className={"spec-input mb-address"}
             type="text"
             placeholder={
               authMember?.memberAddress
@@ -137,13 +148,16 @@ export function Settings() {
           />
         </div>
       </Box>
+
       <Box className={"input-frame"}>
         <div className={"long-input"}>
-          <label className={"spec-label"}>Description</label>
+          <label className={"spec-label"}>What do you ride?</label>
           <textarea
             className={"spec-textarea mb-description"}
             placeholder={
-              authMember?.memberDesc ? authMember?.memberDesc : "no description"
+              authMember?.memberDesc
+                ? authMember?.memberDesc
+                : "e.g. 2023 Ninja ZX-10R — track days at Inje Speedium"
             }
             value={memberUpdateInput.memberDesc}
             name="memberDesc"
@@ -151,9 +165,10 @@ export function Settings() {
           />
         </div>
       </Box>
+
       <Box className={"save-box"}>
         <Button variant={"contained"} onClick={handleSubmitButton}>
-          Save
+          Save changes
         </Button>
       </Box>
     </Box>
